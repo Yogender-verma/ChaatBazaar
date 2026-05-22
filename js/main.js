@@ -473,7 +473,7 @@ window.reorderOrder = function(orderId) {
   const sidebar = document.getElementById("cart-sidebar");
   if (sidebar) {
     sidebar.setAttribute("aria-hidden", "false");
-    sidebar.style.transform = "translateX(0)";
+    sidebar.classList.add("open");
   }
 };
 
@@ -496,7 +496,7 @@ function addToCart(id) {
   // Slide open the cart sidebar automatically for a premium UX when adding items on index.html
   if (cartSidebar) {
     cartSidebar.setAttribute("aria-hidden", "false");
-    cartSidebar.style.transform = "translateX(0)";
+    cartSidebar.classList.add("open");
   }
 }
 
@@ -539,18 +539,18 @@ function setupCartToggle() {
   cartOpenBtn.addEventListener("click", (e) => {
     e.preventDefault();
     cartSidebar.setAttribute("aria-hidden", "false");
-    cartSidebar.style.transform = "translateX(0)";
+    cartSidebar.classList.add("open");
   });
 
   cartCloseBtn.addEventListener("click", () => {
     cartSidebar.setAttribute("aria-hidden", "true");
-    cartSidebar.style.transform = "translateX(100%)";
+    cartSidebar.classList.remove("open");
   });
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && cartSidebar.getAttribute("aria-hidden") === "false") {
       cartSidebar.setAttribute("aria-hidden", "true");
-      cartSidebar.style.transform = "translateX(100%)";
+      cartSidebar.classList.remove("open");
     }
   });
 }
