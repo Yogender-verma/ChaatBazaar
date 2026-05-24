@@ -759,37 +759,14 @@ function setupContactForm() {
     errorMessage.textContent = "";
     formSuccess.style.display = "none";
 
-    const nameVal    = nameInput.value.trim();
-    const emailVal   = emailInput.value.trim();
-    const messageVal = messageInput.value.trim();
+    const validation = validateAndSanitizeContactForm(nameInput.value, emailInput.value, messageInput.value);
 
-    let valid = true;
-
-    if (nameVal === "") {
-      errorName.textContent = "Name is required.";
-      valid = false;
-    } else if (nameVal.length < 2) {
-      errorName.textContent = "Name must be at least 2 characters.";
-      valid = false;
+    if (!validation.valid) {
+      if (validation.errors.name) errorName.textContent = validation.errors.name;
+      if (validation.errors.email) errorEmail.textContent = validation.errors.email;
+      if (validation.errors.message) errorMessage.textContent = validation.errors.message;
+      return;
     }
-
-    if (emailVal === "") {
-      errorEmail.textContent = "Email is required.";
-      valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-      errorEmail.textContent = "Please enter a valid email address.";
-      valid = false;
-    }
-
-    if (messageVal === "") {
-      errorMessage.textContent = "Message is required.";
-      valid = false;
-    } else if (messageVal.length < 10) {
-      errorMessage.textContent = "Message must be at least 10 characters.";
-      valid = false;
-    }
-
-    if (!valid) return;
 
     formSuccess.style.display = "block";
     setTimeout(() => {
@@ -807,9 +784,10 @@ function setupNewsletterForm() {
   newsletterForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const emailVal = emailInput.value.trim();
-    if (!emailVal || !/\S+@\S+\.\S+/.test(emailVal)) {
-      alert("Please enter a valid email address.");
+    const validation = validateAndSanitizeEmail(emailInput.value);
+
+    if (!validation.valid) {
+      alert(validation.error);
       return;
     }
 
