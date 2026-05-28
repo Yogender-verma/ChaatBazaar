@@ -605,17 +605,20 @@
       flex-wrap: wrap;
       margin-bottom: 3rem;
     }
-    .team-member {
-  flex: 1 1 380px;
-  max-width: 420px;
-  height: 320px;
-  perspective: 1000px;
-  background: transparent;
-  border-radius: 20px;
-  box-shadow: none;
-  padding: 0;
-  text-align: center;
-  user-select: none;
+   
+   .team-member {
+   width: 100%;
+   max-width: 420px;
+   min-width: 280px;
+   height: 320px;
+   flex: 1 1 320px;
+   perspective: 1000px;
+   background: transparent;
+   border-radius: 20px;
+   box-shadow: none;
+   padding: 0;
+   text-align: center;
+   user-select: none;
 }
 
 .team-member-inner {
@@ -1066,6 +1069,14 @@
       }
     }
 
+    /*=====Team member layout Fix===*/
+
+    @media (max-width: 768px) {
+    .team-member {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  }
     /* ===== Mobile Navbar Fix ===== */
 @media (max-width: 480px) {
 
