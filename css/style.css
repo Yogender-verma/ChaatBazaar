@@ -1105,32 +1105,173 @@
       background: #fbe9e7;
     }
 
-    /* ===== Footer ===== */
+    /* ===== Modern Premium Footer ===== */
     footer {
-      background: #bf360c;
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-      user-select: none;
+      background: #fff3e0; /* Warm cream background */
+      color: #3e2723; /* Deep warm brown text */
+      padding: 4rem 2rem 2rem;
+      border-top: 1px solid rgba(255, 87, 34, 0.15);
+      user-select: text; /* Allow selecting text */
+      font-family: 'Poppins', sans-serif;
     }
-    footer p {
-      font-weight: 600;
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    @media (max-width: 1024px) {
+      .footer-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .footer-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ff5722; /* Vibrant orange logo */
       margin-bottom: 1rem;
-      font-size: 0.9rem;
-    }
-    .social-icons {
       display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .footer-desc {
+      font-size: 0.95rem;
+      color: #5d4037;
+      line-height: 1.6;
+      max-width: 320px;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #bf360c; /* Deep brand orange */
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .footer-links li a {
+      color: #5d4037;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: inline-block;
+    }
+    
+    .footer-links li a:hover {
+      color: #ff5722;
+      transform: translateX(3px);
+    }
+    
+    .footer-contact-info {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      color: #5d4037;
+      font-size: 0.95rem;
+    }
+    
+    .footer-contact-info li {
+      line-height: 1.5;
+    }
+    
+    .footer-contact-info strong {
+      color: #bf360c;
+    }
+    
+    .footer-social-wrapper {
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    
+    .footer-social-icons a {
+      display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 0.8rem;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #ff5722;
+      color: white !important;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
     }
-    .social-icons a {
-      color: white;
-      font-size: 1.5rem;
-      transition: color 0.3s ease;
+    
+    .footer-social-icons a:hover {
+      background: #bf360c;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
     }
-    .social-icons a:hover {
-      color: #ffccbc;
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 87, 34, 0.1);
+      padding-top: 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #8d6e63;
+      font-weight: 500;
+    }
+    
+    .footer-bottom p {
+      margin: 0;
+    }
+    
+    /* Dark Mode Overrides */
+    body.dark footer {
+      background: #1e1e1e;
+      border-top-color: rgba(255, 87, 34, 0.1);
+      color: #ccc;
+    }
+    
+    body.dark .footer-desc, 
+    body.dark .footer-links li a, 
+    body.dark .footer-contact-info {
+      color: #aaa;
+    }
+    
+    body.dark .footer-links li a:hover {
+      color: #ff7b54;
+    }
+    
+    body.dark .footer-bottom {
+      border-top-color: rgba(255, 255, 255, 0.05);
+      color: #777;
     }
 
     /* ===== Enhanced Animations & Transitions ===== */
