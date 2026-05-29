@@ -2232,6 +2232,7 @@ body.dark .skeleton {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #e64a19;
+}
 /* ===== Accessibility Styles ===== */
 
 /* Skip link - visible on focus */
