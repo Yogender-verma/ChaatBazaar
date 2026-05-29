@@ -249,6 +249,19 @@
       white-space: nowrap;
       gap: 0.4rem;
     }
+    .navbar-logo-img {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 6px;
+      background: white;
+      padding: 2px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .logo:hover .navbar-logo-img {
+      transform: scale(1.08);
+    }
     nav {
       display: flex;
       align-items: center;
