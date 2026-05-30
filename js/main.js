@@ -980,6 +980,114 @@ function removeFromCart(id) {
  
   const removedItem = cart[cartIndex].item;
   cartManager.decreaseQuantity(id);
+  const cartItem = cart.find(
+    (ci) => ci.item.id === id
+  );
+
+  if (!cartItem) return;
+
+  const removedItem = cartItem.item;
+
+  if (
+    typeof cartManager.decreaseQuantity ===
+    "function"
+  ) {
+    cartManager.decreaseQuantity(id);
+  } else {
+    cartManager.removeItem(id);
+  }
+  return true;
+};
+
+window.placeOrderFromCheckout = function (customerDetails, pricingInfo) {
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return null;
+  }
+
+  // Award loyalty points on final total paid (10 points per ₹100 spent)
+  let pointsEarned = 0;
+  if (typeof loyalty !== 'undefined') {
+    pointsEarned = loyalty.awardPoints(pricingInfo.grandTotal);
+  }
+
+  // Redeem loyalty points if applied
+  let pointsRedeemed = pricingInfo.pointsRedeemed || 0;
+  if (pointsRedeemed > 0 && typeof loyalty !== 'undefined') {
+    loyalty.redeemPoints(pointsRedeemed);
+  }
+
+  const finalTotal = pricingInfo.grandTotal;
+  const totalDiscount = pricingInfo.couponDiscount + pointsRedeemed;
+
+  // Get selected coordinates from live-tracking.js if available
+  const deliveryCoords = window.selectedDeliveryCoords || {
+    latitude: window.RESTAURANT_LOCATION?.latitude || 28.6129,
+    longitude: window.RESTAURANT_LOCATION?.longitude || 77.2295
+  };
+  const deliveryDistance = window.selectedDeliveryDistance || 0;
+
+  const newOrder = {
+    id: "CB-" + Math.floor(100000 + Math.random() * 900000),
+    date: new Date().toLocaleDateString(undefined, {
+      month: 'short', day: 'numeric', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    }),
+    timestamp: Date.now(),
+    items: JSON.parse(JSON.stringify(cart)),
+    total: finalTotal,
+    discount: totalDiscount,
+    coupon: pricingInfo.couponCode || null,
+    subtotal: pricingInfo.subtotal,
+    pointsRedeemed: pointsRedeemed,
+    pointsEarned: pointsEarned,
+    status: "Pending",
+    customerDetails: {
+      name: customerDetails.name,
+      phone: customerDetails.phone,
+      address: customerDetails.address,
+      paymentMethod: customerDetails.paymentMethod
+    },
+    deliveryAddress: {
+      latitude: deliveryCoords.latitude,
+      longitude: deliveryCoords.longitude,
+      source: "map-selection"
+    },
+    deliveryDistance: deliveryDistance,
+    restaurantLocation: window.RESTAURANT_LOCATION || { latitude: 28.6129, longitude: 77.2295 }
+  };
+
+  orders.unshift(newOrder);
+  localStorage.setItem('chaatOrders', JSON.stringify(orders));
+
+  // Reset points applied state
+  loyaltyPointsApplied = false;
+
+  cartManager.clear();
+  updateCartCount();
+  updateFavCount();
+  renderCart();
+
+  // Re-render orders lists if we are on the orders page
+  if (typeof renderOrdersList === 'function') {
+    renderOrdersList();
+  }
+  if (typeof updateOrderStatuses === 'function') {
+    updateOrderStatuses();
+  }
+
+  return newOrder;
+};
+
+
+window.reorderOrder = function (orderId) {
+  const pastOrder = orders.find(o => o.id === orderId);
+  if (!pastOrder) return;
+
+  pastOrder.items.forEach(orderItem => {
+    cartManager.addItem(orderItem.item, orderItem.quantity);
+  });
+
   updateCartCount();
   updateFavCount();
   renderCart();
@@ -1397,6 +1505,67 @@ async function init() {
         window.location.href = `orders.html?delivery=${result.deliveryAvailable}`;
       }
     });
+    );
+
+    recognition.onresult = (
+      event
+    ) => {
+      const transcript =
+        event.results[0][0].transcript;
+
+      searchInput.value = transcript;
+
+      applyAllFilters();
+
+      voiceBtn.innerHTML = "🎤";
+
+  // Bind interactive UI listeners immediately for instant input responsiveness (high INP)
+  setupCartToggle();
+  setupFilterButtons();
+  setupCouponListeners();
+  setupOrderNowScroll();
+  setupSearchSuggestions();
+  setupSearch();
+  setupAdvancedFilters();
+  setupContactForm();
+  setupNewsletterForm();
+  setupActiveNavbar();
+  setupDropdownFilterLinks();
+
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      window.location.href = "orders.html";
+    });
+  }
+      voiceBtn.classList.remove(
+        "listening"
+      );
+    };
+
+    recognition.onerror = () => {
+      voiceBtn.innerHTML = "🎤";
+
+      voiceBtn.classList.remove(
+        "listening"
+      );
+
+      alert(
+        "Voice recognition failed."
+      );
+    };
+
+    recognition.onend = () => {
+      voiceBtn.innerHTML = "🎤";
+
+      voiceBtn.classList.remove(
+        "listening"
+      );
+    };
   }
  
   // Load menu data, then render
