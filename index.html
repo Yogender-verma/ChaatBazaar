@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ChaatBazar 🍴 | Authentic Indian Street Food Delivered Hot</title>
+  <link rel="stylesheet" href="css/auth.css">
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -12,6 +13,7 @@
   <link rel="icon" href="img/logo.png" type="image/png" />
 </head>
 <body>
+
 
 <!-- Header & Navigation -->
 <header>
@@ -56,6 +58,11 @@
           <span class="theme-toggle-thumb"></span>
         </span>
       </button>
+
+      <!-- Dynamic auth slot: replaced by js/auth.js based on session state -->
+      <div id="authNavItem" class="auth-nav-item">
+        <a href="login.html" class="login-btn-nav">Login</a>
+      </div>
     </nav>
   </div>
 </header>
@@ -350,5 +357,6 @@
 <script src="js/translations.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/main.js"></script>
+<script src="js/auth.js"></script>
 </body>
 </html>
