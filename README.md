@@ -16,7 +16,7 @@ Demo Link : <a href="https://patelharsh2006.github.io/ChaatBazaar/">Link</a>
 - [✨ Key Features](#-key-features-)
 - [📸 Visual Showcase](#-visual-showcase-)
 - [💻 Tech Stack](#-tech-stack-)
-- [📋 Important Points for Contributors](#-important-points-for-contributors-to-keep-in-mind-)
+- [📋 Important Points for Contributors](#important-points-for-contributors-to-keep-in-mind-)
 - [📥 Submitting a Pull Request for First Time](#-submitting-a-pull-request-for-first-time-)
 * [📜 License](#-license-)
 * [🤝 Contacts](#-contacts)
