@@ -12,7 +12,6 @@ Demo Link : <a href="https://patelharsh2006.github.io/ChaatBazaar/">Link</a>
 
 
 ## 📚 Table of Contents
-- [ChaatBazaar🍴](chaatbazaar-)
 - [🚀 About the Project](#-about-the-project-)
 - [✨ Key Features](#-key-features-)
 - [📸 Visual Showcase](#-visual-showcase-)
